@@ -24,6 +24,8 @@
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="fullscreen" value="true" />
+
     <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-minSdkVersion"      value="14" />
 
