@@ -41,7 +41,9 @@
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.js"></script>
+    <script src="js/index.js"></script>
 
     <title>Wifi teplomer</title>
 </head>
@@ -74,17 +76,17 @@
     </div>
 
   <div data-role="main" class="ui-content">
-        <h3>Sign In</h3>
+        <h3>Prihlaseni</h3>
         <div id="ctn-err" class="bi-invisible"></div>
-        <label for="txt-email-address">Email Address</label>
-        <input type="text" name="txt-email-address" id="txt-email-address" value="">
-        <label for="txt-password">Password</label>
-        <input type="password" name="txt-password" id="txt-password" value="">
+        <label for="txt-email-address">Email</label>
+        <input type="text" name="txt-email-address" id="email_login" value="">
+        <label for="txt-password">Heslo</label>
+        <input type="password" name="txt-password" id="password_login" value="">
         <fieldset data-role="controlgroup">                
-            <label><input type="checkbox" name="chk-keep-signed-in" id="chk-keep-signed-in"> Keep me signed in</label>
+            <label><input type="checkbox" name="chk-keep-signed-in" id="chk-keep-sign"> Stale prihlasen</label>
         </fieldset>
-        <a href="#dlg-invalid-credentials" data-rel="popup" data-transition="pop" data-position-to="window" id="btn-submit" class="ui-btn ui-btn-b ui-corner-all mc-top-margin-1-5">Submit</a>
-        <p class="mc-top-margin-1-5"><a href="#begin-password-reset-page">Can't access your account?</a></p>
+        <button class="ui-btn ui-btn-b ui-corner-all" id="prihlaseni"><span id="loginbuttontext">Prihlasit se</span></button>
+        <p class="mc-top-margin-1-5"><a href="#begin-password-reset-page">Zapomeli jste heslo?</a></p>
     </div>
 
   </div>
@@ -114,11 +116,22 @@
   </div>
 </div>
 
+<div data-role="page" id="afterreg" >
+  <div data-role="header" data-theme="b" >
+    <h2> Dokonceni registrace</h2>
+  </div>
+  <div data-role="main" class="ui-content">
+    Skoro hotovo, jeste na svem mailu musite potvrdit registrace a pak se budete moci prihlasit
+    <a href="#signinpage" data-icon="home" class="ui-btn ui-btn-b ui-corner-all" data-transition="slide" data-direction="reverse">Prejit na prihlaseni</a>
+
+  </div>
+  <div data-role="footer">
+  </div>
+</div>
+
 
 
     <script src="cordova.js"></script>
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/jquery.mobile-1.4.5.js"></script>
-    <script src="js/index.js"></script>
+
 </body>
 </html>

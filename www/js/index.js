@@ -17,32 +17,23 @@ $("#registrace").click(function() {
             $.ajax({
                 type: "GET",
                 url: url,
+                async: 'true',
+                dataType: 'json',
                 data: dataString,
                 crossDomain: true,
                 cache: false,
                 beforeSend: function(){ $("#registrace").text('Connecting...'); $.mobile.loading('show');},
                 complete: function() { $.mobile.loading('hide'); },
-                success: function(data){
-                    date = data.trim();
-                    data = data.replace(/(\r\n|\n|\r)/gm,"");
-                    var datahelp = data;
-                    data = data.substr(0,7);
-                    if(data=="success")
+                success: function (result){
+                    if( result.status == 'success')
                     {
-                    var userid = datahelp.substring(7);
-                    localStorage.userid = userid;
-                    localStorage.fullname = fullname;
-                    localStorage.email = email;
-                    //$("#registration").hide("slow");
-                    //loadWifiTemp();
-                    $.mobile.changePage("#welcomepage"); 
-                    //alert("success");
+                    $.mobile.changePage("#afterreg"); 
                         }
-                    else if(data=="exist")
+                    else if( result.status == 'exist')
                     {
                         alert("Hey! You alreay has account! you can login with us");
                     }
-                    else if(data=="failed")
+                    else if( result.status == 'failed')
                     {
                         alert("Something Went wrong");
                     } 
@@ -51,7 +42,44 @@ $("#registrace").click(function() {
         }
         return false;
     });
+
+$("#prihlaseni").click(function() {
+
+        var email=$("#email_login").val();
+        var password=$("#password_login").val();
+        //var dataString="&email_login="+email+"&passwordlogin="+password+"&registrace=";
+        var formdata = {prihlaseni: 'yes', email: email, password: password};
+
+        if($.trim(email).length>0 & $.trim(password).length>0)
+        {
+
+            $.ajax({
+                type: "post",
+                url: url,
+                async: 'true',
+                dataType: 'json',
+                data: formdata,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function(){ $("#prihlaseni").text('Connecting...'); $.mobile.loading('show');},
+                complete: function() { $.mobile.loading('hide'); $("#regbuttontext").text('Prihlasit se') },
+                success: function (result){
+                    
+                    if( result.status == 'success')
+                    {
+                        $.mobile.changePage("#afterreg"); 
+                    }
+                    else if( result.status == 'failed')
+                    {
+                        alert("user name and/or password are invalid");
+                    } 
+                }
+            });
+        }
+        return false;
+    });
 });
+
 
 /*var userHandler = {
     username : '',
