@@ -1,4 +1,4 @@
-var url="http://www.brrr.cz/brrr.php?";
+ var url="http://www.brrr.cz/brrr.php?";
 
 
 $(document).ready(function(){
@@ -27,6 +27,7 @@ $("#registrace").click(function() {
                 success: function (result){
                     if( result.status == 'success')
                     {
+
                     $.mobile.changePage("#afterreg"); 
                         }
                     else if( result.status == 'exist')
@@ -62,12 +63,16 @@ $("#prihlaseni").click(function() {
                 crossDomain: true,
                 cache: false,
                 beforeSend: function(){ $("#prihlaseni").text('Connecting...'); $.mobile.loading('show');},
-                complete: function() { $.mobile.loading('hide'); $("#regbuttontext").text('Prihlasit se') },
+                complete: function() { $.mobile.loading('hide'); $("#prihlaseni").text('Prihlasit se') },
                 success: function (result){
                     
                     if( result.status == 'success')
                     {
-                        $.mobile.changePage("#afterreg"); 
+                        localStorage.fullname=result.fullname;
+                        localStorage.email=result.email;
+                        localStorage.userid=result.id;
+                        $( "#fullnameinheader" ).append(result.fullname);
+                        $.mobile.changePage("#afterlogin"); 
                     }
                     else if( result.status == 'failed')
                     {
@@ -78,7 +83,29 @@ $("#prihlaseni").click(function() {
         }
         return false;
     });
+
+
 });
+
+$(document).on("pageshow","#afterlogin",function(event, ui){
+    if (ui.prevPage.attr('id') == 'signinpage') {
+        $( "#myPopup" ).popup( "open",  {
+                transition: "slidedown",
+            });
+
+}
+});
+
+/*$(document).on( "pageshow", function( event, ui) 
+{
+    console.log('pageshow');
+});*/
+
+
+
+ /*$( "#afterlogin" ).pagecontainer({
+  show: function( event, ui ) {}
+});*/
 
 
 /*var userHandler = {
