@@ -71,8 +71,9 @@ $("#prihlaseni").click(function() {
                         localStorage.fullname=result.fullname;
                         localStorage.email=result.email;
                         localStorage.userid=result.id;
+                         $( "#myPopup" ).popup( "open", { transition: "slidedown", });
                         $( "#fullnameinheader" ).append(result.fullname);
-                        $.mobile.changePage("#afterlogin"); 
+                        //$.mobile.changePage("#afterlogin"); 
                     }
                     else if( result.status == 'failed')
                     {
@@ -87,13 +88,14 @@ $("#prihlaseni").click(function() {
 
 });
 
-$(document).on("pageshow","#afterlogin",function(event, ui){
+$(document).on("pagebeforeshow","#afterlogin",function(event, ui){
     if (ui.prevPage.attr('id') == 'signinpage') {
         $( "#myPopup" ).popup( "open",  {
                 transition: "slidedown",
             });
 
 }
+
 });
 
 /*$(document).on( "pageshow", function( event, ui) 
