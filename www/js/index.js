@@ -88,15 +88,45 @@ $("#prihlaseni").click(function() {
 
 });
 
-$(document).on("pagebeforeshow","#afterlogin",function(event, ui){
-    if (ui.prevPage.attr('id') == 'signinpage') {
-        $( "#myPopup" ).popup( "open",  {
-                transition: "slidedown",
-            });
-
+function displayTS(listOfTS) {
+    var out = "";
+    var i;
+    for(i = 0; i < listOfTS.length; i++) {
+        out += '<span>' + listOfTS[i].ssid + '</span><span>' + listOfTS[i].location + '</span><br>';
+    }
+    if (listOfTS.length == 0) {
+        out = "Nemáte zatím žádné zaregistrované teploměry";
+    }
+    $("#listOfTS").html(out);
 }
 
-});
+$(document).on("pagebeforeshow","#afterlogin",function(event, ui){
+        var userid = localStorage.userid;
+        var formdata = {getwifitemps: 'yes', userid: userid };
+        alert("jojo");
+
+        if($.trim(userid).length>0 )
+        {
+
+            $.ajax({
+                type: "get",
+                url: url,
+                async: 'true',
+                dataType: 'json',
+                data: formdata,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function(){ },
+                complete: function() { },
+                success: function (result){
+                    displayTS(result);
+                    
+                }
+            });
+        }
+        return false;
+    });
+  
 
 /*$(document).on( "pageshow", function( event, ui) 
 {
